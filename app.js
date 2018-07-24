@@ -19,8 +19,9 @@ app.get('/wyr/', async (req, res) => {
 app.post('/slack/wyr/', function(req, res) {
     let keys = Object.keys(req);
     for (let i=0;i<keys.length;i++) {
+        console.log('---------------------');
         console.log(keys[i]);
-        console.log(keys[i]);
+        console.log(req[keys[i]]);
     }
     res.send(req.body);
 });
