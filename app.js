@@ -13,6 +13,10 @@ app.get('/wyr/', async (req, res) => {
     res.send(await getGoodQuestion());
 });
 
+app.post('/slack/wyr/', function(req, res) {
+    console.log(res.body);
+    res.send(res.body);
+});
 
 app.get('/slack/wyr/', async (req, res) => {
     const question = await getGoodQuestion();
