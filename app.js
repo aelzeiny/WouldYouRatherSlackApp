@@ -1,6 +1,9 @@
 const express = require('express');
 const app = express();
+const bodyParser = require('body-parser');
 const {getQuestion, getGoodQuestion} = require('./wyr');
+
+app.use(express.json()); 
 
 String.prototype.replaceAll = function(search, replacement) {
     return this.split(search).join(replacement);
