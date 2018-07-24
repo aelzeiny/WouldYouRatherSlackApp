@@ -17,8 +17,8 @@ app.get('/wyr/', async (req, res) => {
 });
 
 app.post('/slack/wyr/', function(req, res) {
-    console.log(res.body);
-    res.send(res.body);
+    console.log(req.body);
+    res.send(req.body);
 });
 
 app.get('/slack/wyr/', async (req, res) => {
