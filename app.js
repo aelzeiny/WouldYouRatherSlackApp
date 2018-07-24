@@ -17,8 +17,11 @@ app.get('/wyr/', async (req, res) => {
 });
 
 app.post('/slack/wyr/', function(req, res) {
-    console.log(req.body);
-    console.log(Object.keys(req));
+    let keys = Object.keys(req);
+    for (let i=0;i<keys.length;i++) {
+        console.log(keys[i]);
+        console.log(keys[i]);
+    }
     res.send(req.body);
 });
 
