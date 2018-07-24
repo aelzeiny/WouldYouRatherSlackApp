@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const {getQuestion, getGoodQuestion} = require('./wyr');
 
 // app.use(express.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 
 String.prototype.replaceAll = function(search, replacement) {
     return this.split(search).join(replacement);
@@ -18,11 +19,13 @@ app.get('/wyr/', async (req, res) => {
 
 app.post('/slack/wyr/', function(req, res) {
     let keys = Object.keys(req);
-    for (let i=0;i<keys.length;i++) {
-        console.log('---------------------');
-        console.log(keys[i]);
-        console.log(req[keys[i]]);
-    }
+    console.log(req['body']);
+    console.log(req['params']);
+    // for (let i=0;i<keys.length;i++) {
+    //     console.log('---------------------');
+    //     console.log(keys[i]);
+    //     console.log(req[keys[i]]);
+    // }
     res.send(req.body);
 });
 
