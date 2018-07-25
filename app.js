@@ -1,6 +1,8 @@
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
+
+const {render_question, render_polly} = require('./views/wyr_render');
 const {getQuestion, getGoodQuestion} = require('./wyr');
 
 // app.use(express.json());
@@ -17,21 +19,16 @@ app.get('/wyr/', async (req, res) => {
     res.send(await getGoodQuestion());
 });
 
-app.post('/slack/wyr/', function(req, res) {
-    let keys = Object.keys(req);
-    console.log(req['body']);
-    console.log(req['params']);
-    // for (let i=0;i<keys.length;i++) {
-    //     console.log('---------------------');
-    //     console.log(keys[i]);
-    //     console.log(req[keys[i]]);
-    // }
-    res.send(req.body);
+app.post('/slack/wyr_custom/', async function(req, res) {
+    const question = await getGoodQuestion();
+    const formatted = render_question(question);
+    res.send(JSON.stringify(formatted));
 });
 
-app.get('/slack/wyr/', async (req, res) => {
+app.post('/slack/wyr/', async function(req, res) {
     const question = await getGoodQuestion();
-    res.send(`/poll "${question.title.removeQuotes()}" "${question.choicea.removeQuotes()}" "${question.choiceb.removeQuotes()}"`);
+    const formatted = render_polly(question);
+    res.send(formatted);
 });
 
 app.listen(3000, () => console.log('Example app listening on port 3000!'));

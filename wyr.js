@@ -12,10 +12,18 @@ function getQuestion() {
         request(API_URL, {json: true}, (err, res, body) => {
             if (res.body.tags)
                 res.body.tags = res.body.tags.split(',').map((el) => el.trim());
+            if (res.body.choicea && res.body.choiceb) {
+                res.body.choicea = capFirstWord(res.body.choicea);
+                res.body.choiceb = capFirstWord(res.body.choiceb);
+            }
             resolve(res.body);
         });
     };
     return new Promise(makeRequest);
+}
+
+function capFirstWord(word) {
+    return word.charAt(0).toUpperCase() + word.substr(1)
 }
 
 const isGoodQuestion = (question) => {
